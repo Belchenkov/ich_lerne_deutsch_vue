@@ -53,14 +53,20 @@
         },
         computed: {
             menuItems() {
-                return [
+                return this.isUserAuthenticated ?
+                 [
                     { icon: 'visibility', title: 'Читать', route: '/books' },
-                    { icon: 'extension', title: 'Учить слова', route: '/words' },
                     { icon: 'account_circle', title: 'Мой кабинет', route: '/profile' },
                     { icon: 'exit_to_app', title: 'Выйти', route: '/logout' },
+                 ] :
+                [
+                    { icon: 'visibility', title: 'Читать', route: '/books' },
                     { icon: 'input', title: 'Войти', route: '/signin' },
                     { icon: 'lock_open', title: 'Зарегистрироваться', route: '/signup' },
                 ]
+            },
+            isUserAuthenticated () {
+                return this.$store.getters.isUserAuthenticated
             }
         }
     }

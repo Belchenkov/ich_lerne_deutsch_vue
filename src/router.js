@@ -2,11 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from './views/Home.vue'
-import Books from './components/Books'
-import Words from './components/Words'
-import Profile from './components/Profile'
-import Signin from './components/Signin'
-import Signup from './components/Signup'
+import Books from './views/Books'
+import Words from './views/Words'
+import Profile from './views/Profile'
+import Signin from './views/Signin'
+import Signup from './views/Signup'
 
 Vue.use(Router)
 
@@ -17,7 +17,7 @@ export default new Router({
     { path: '/words', name: 'words', component: Words },
     { path: '/profile', name: 'profile', component: Profile },
     { path: '/signin', name: 'signin', component: Signin },
-    { path: '/logout', name: 'signup', component: Signup }
+    { path: '/signup', name: 'signup', component: Signup }
   ],
     mode: 'history'
 })
