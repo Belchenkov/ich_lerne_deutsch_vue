@@ -31,12 +31,16 @@
             <v-toolbar-items class="hidden-sm-and-down">
                 <v-btn
                         v-for="(item, i) in menuItems"
-                        :key="i"
+                        :key="`menuitems${i}`"
                         flat
                         :to="item.route"
                 >
                     <v-icon left v-html="item.icon"></v-icon>
                     {{ item.title }}
+                </v-btn>
+                <v-btn flat @click.prevent="logout" v-if="isUserAuthenticated">
+                    <v-icon left>exit_to_app</v-icon>
+                    Выйти
                 </v-btn>
             </v-toolbar-items>
         </v-toolbar>
@@ -47,7 +51,7 @@
     export default {
         data () {
             return {
-                logoText: 'Ich Lerne Deutsch',
+                logoText: 'Ich lerne Deutsch',
                 drawer: false
             }
         },
@@ -56,8 +60,7 @@
                 return this.isUserAuthenticated ?
                  [
                     { icon: 'visibility', title: 'Читать', route: '/books' },
-                    { icon: 'account_circle', title: 'Мой кабинет', route: '/profile' },
-                    { icon: 'exit_to_app', title: 'Выйти', route: '/logout' },
+                    { icon: 'account_circle', title: 'Мой кабинет', route: '/profile' }
                  ] :
                 [
                     { icon: 'visibility', title: 'Читать', route: '/books' },
@@ -66,7 +69,14 @@
                 ]
             },
             isUserAuthenticated () {
-                return this.$store.getters.isUserAuthenticated
+                return this.$store.getters.isUserAuthenticated;
+            }
+        },
+        methods: {
+            logout() {
+                this.$confirm('Действительно хотите выйти?').then(res => {
+                    return !!res ? this.$store.dispatch('LOGOUT') : false;
+                });
             }
         }
     }
