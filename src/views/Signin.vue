@@ -20,6 +20,7 @@
                                         type="text"
                                         required
                                         v-model="email"
+                                        :rules="emailRules"
                                 ></v-text-field>
                                 <v-text-field
                                         id="password"
@@ -29,6 +30,7 @@
                                         type="password"
                                         required
                                         v-model="password"
+                                        :rules="passwordRules"
                                 ></v-text-field>
                             </v-form>
                         </v-card-text>
@@ -53,6 +55,14 @@
             return {
                 email: null,
                 password: null,
+                emailRules: [
+                    (v) => !!v || 'Пожалуйста введите email',
+                    (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Неправильный email'
+                ],
+                passwordRules: [
+                    (v) => !!v || 'Пожалуйста введите пароль',
+                    (v) => (v && v.length >= 6) || 'Пароль слишком короткий - минимум 6 символов'
+                ]﻿
             }
         },
         computed: {
@@ -73,7 +83,7 @@
         },
         methods: {
             signin () {
-                this.$store.dispatch('SUGNIN', {
+                this.$store.dispatch('SIGNIN', {
                     email: this.email,
                     password: this.password
                 })

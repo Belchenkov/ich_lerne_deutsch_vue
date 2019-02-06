@@ -12,7 +12,7 @@
                                 type="warning"
                                 :value="error"
                             >{{ error }}</v-alert>
-                            <v-form>
+                            <v-form v-model="valid">
                                 <v-text-field
                                         prepend-icon="person"
                                         name="login"
@@ -20,6 +20,7 @@
                                         type="text"
                                         required
                                         v-model="email"
+                                        :rules="emailRules"
                                 ></v-text-field>
                                 <v-text-field
                                         id="password"
@@ -29,6 +30,7 @@
                                         type="password"
                                         required
                                         v-model="password"
+                                        :rules="passwordRules"
                                 ></v-text-field>
                             </v-form>
                         </v-card-text>
@@ -37,7 +39,7 @@
                             <v-btn
                                     color="primary"
                                     @click.prevent="signup"
-                                    :disabled="processing"
+                                    :disabled="processing || !valid"
                             >Зарегистрироваться</v-btn>
                         </v-card-actions>
                     </v-card>
@@ -53,6 +55,15 @@
             return {
                 email: null,
                 password: null,
+                valid: false,
+                emailRules: [
+                    (v) => !!v || 'Пожалуйста введите email',
+                    (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Неправильный email'
+                ],
+                passwordRules: [
+                    (v) => !!v || 'Пожалуйста введите пароль',
+                    (v) => (v && v.length >= 6) || 'Пароль слишком короткий - минимум 6 символов'
+                ]﻿
             }
         },
         computed: {
@@ -73,7 +84,7 @@
         },
         methods: {
             signup () {
-                this.$store.dispatch('SUGNUP', {
+                this.$store.dispatch('SIGNUP', {
                     email: this.email,
                     password: this.password
                 })
