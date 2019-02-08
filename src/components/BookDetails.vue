@@ -1,13 +1,13 @@
 <template>
     <v-card
-        color="info"
-        class="white--text"
+            color="info"
+            class="white--text"
     >
         <v-container fluid>
             <v-layout row>
                 <v-flex xs4 md3>
                     <v-img
-                            height="150"
+                            height="200"
                             src="https://dynamic.indigoimages.ca/books/1408855658.jpg?altimages=false&scaleup=true&maxheight=515&width=380&quality=85&sale=40&lang=en"
                     ></v-img>
                     <div class="text-xs-center">
@@ -27,22 +27,18 @@
                     </v-card-title>
                     <v-card-actions>
                         <v-rating
-                            v-model="book.rating"
-                            color="yellow"
-                            dense
-                            readonly
-                            half-increments
+                                v-model="book.rating"
+                                color="yellow"
+                                dense
+                                readonly
+                                half-increments
                         ></v-rating>
                         <div class="ml-1">
                             <span>{{book.rating}}</span>
                             <span>({{book.ratingsCount}})</span>
                         </div>
                         <v-spacer></v-spacer>
-                        <v-btn
-                                class="primary"
-                                :to="{name: 'book', params: {id: book.id}}"
-                                flat
-                        >Открыть</v-btn>
+                        <v-btn class="primary" flat>Загрузить</v-btn>
                     </v-card-actions>
                 </v-flex>
             </v-layout>
@@ -55,7 +51,7 @@
 
     export default {
         props: {
-            book: {
+            'book': {
                 type: Object,
                 required: true
             }
