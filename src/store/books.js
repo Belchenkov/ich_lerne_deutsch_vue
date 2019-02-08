@@ -97,10 +97,76 @@ export default {
                     }
                 ]
             }
+        ],
+        bookParts: [
+            {
+                bookId: 'wrwerwerwerwerw',
+                bookPartId: 'sdfsdfsdfsdf',
+                bookTitle: 'Harry Potter und der Stein der Weisen -3',
+                partTitle: 'Kapitel 1',
+                youtube_id: 'f3kek3k42d',
+                content: [
+                    {
+                        sentences: [
+                            {
+                                origText: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex ipsum obcaecati! Aliquid, facere nemo. Adipisci dolorem nisi veritatis vero!',
+                                transText: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex ipsum obcaecati! Aliquid, facere nemo. Adipisci dolorem nisi veritatis vero!'
+                            },
+                            {
+                                origText: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex ipsum obcaecati! Aliquid, facere nemo. Adipisci dolorem nisi veritatis vero!',
+                                transText: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex ipsum obcaecati! Aliquid, facere nemo. Adipisci dolorem nisi veritatis vero!'
+                            },
+                            {
+                                origText: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex ipsum obcaecati! Aliquid, facere nemo. Adipisci dolorem nisi veritatis vero!',
+                                transText: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex ipsum obcaecati! Aliquid, facere nemo. Adipisci dolorem nisi veritatis vero!'
+                            }
+                        ]
+                    },
+                    {
+                        sentences: [
+                            {
+                                origText: '2Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex ipsum obcaecati! Aliquid, facere nemo. Adipisci dolorem nisi veritatis vero!',
+                                transText: '2Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex ipsum obcaecati! Aliquid, facere nemo. Adipisci dolorem nisi veritatis vero!'
+                            },
+                            {
+                                origText: '2Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex ipsum obcaecati! Aliquid, facere nemo. Adipisci dolorem nisi veritatis vero!',
+                                transText: '2Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex ipsum obcaecati! Aliquid, facere nemo. Adipisci dolorem nisi veritatis vero!'
+                            },
+                            {
+                                origText: '2Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex ipsum obcaecati! Aliquid, facere nemo. Adipisci dolorem nisi veritatis vero!',
+                                transText: '2Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex ipsum obcaecati! Aliquid, facere nemo. Adipisci dolorem nisi veritatis vero!'
+                            }
+                        ]
+                    }
+                ],
+                words: [
+                    {
+                        origWord: 'Hallo',
+                        transWord: 'Привет'
+                    },
+                    {
+                        origWord: 'Hallo2',
+                        transWord: 'Привет2'
+                    },
+                    {
+                        origWord: 'Hallo3',
+                        transWord: 'Привет3'
+                    },
+                    {
+                        origWord: 'Hallo4',
+                        transWord: 'Привет4'
+                    },
+                    {
+                        origWord: 'Hallo5',
+                        transWord: 'Привет5'
+                    },
+                ]
+            }
         ]
     },
     getters: {
-        getBooks: (state) => state.books
+        getBooks: (state) => state.books,
+        getParts: (state) => state.bookParts
     },
     mutations: {
         SET_BOOKS(state, payload) {
