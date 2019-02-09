@@ -14,22 +14,22 @@ export default {
                     {
                         id: 'dsfsdfsfsfsdf',
                         title: 'Kapitel 1',
-                        youtube_id: 'adfadsfsfafsf'
+                        youtube_id: 'u4DUmKFScvU'
                     },
                     {
                         id: 'dsfsdfsfsfsdf2',
                         title: 'Kapitel 2',
-                        youtube_id: 'adfadsfsfafsf2'
+                        youtube_id: 'u4DUmKFScvU'
                     },
                     {
                         id: 'dsfsdfsfsfsdf3',
                         title: 'Kapitel 3',
-                        youtube_id: 'adfadsfsfafsf3'
+                        youtube_id: 'u4DUmKFScvU'
                     },
                     {
                         id: 'dsfsdfsfsfsdf4',
                         title: 'Kapitel 4',
-                        youtube_id: 'adfadsfsfafsf4'
+                        youtube_id: 'u4DUmKFScvU'
                     }
                 ]
             },
@@ -41,27 +41,27 @@ export default {
                 level: ['B1', 'B2'],
                 rating: 3.6,
                 ratingsCount: 57,
-                youtube_playlist_id: '34dsdfdf32fdfdf4',
+                youtube_playlist_id: 'u4DUmKFScvU',
                 parts: [
                     {
                         id: 'dsfsdfsfsfsdf',
                         title: 'Kapitel 1',
-                        youtube_id: 'adfadsfsfafsf'
+                        youtube_id: 'u4DUmKFScvU'
                     },
                     {
                         id: 'dsfsdfsfsfsdf2',
                         title: 'Kapitel 2',
-                        youtube_id: 'adfadsfsfafsf2'
+                        youtube_id: 'u4DUmKFScvU'
                     },
                     {
                         id: 'dsfsdfsfsfsdf3',
                         title: 'Kapitel 3',
-                        youtube_id: 'adfadsfsfafsf3'
+                        youtube_id: 'u4DUmKFScvU'
                     },
                     {
                         id: 'dsfsdfsfsfsdf4',
                         title: 'Kapitel 4',
-                        youtube_id: 'adfadsfsfafsf4'
+                        youtube_id: 'u4DUmKFScvU'
                     }
                 ]
             },
@@ -73,38 +73,38 @@ export default {
                 level: ['A2'],
                 rating: 2,
                 ratingsCount: 80,
-                youtube_playlist_id: '34dsdfdf32fdfdf4fg',
+                youtube_playlist_id: 'u4DUmKFScvU',
                 parts: [
                     {
                         id: 'dsfsdfsfsfsdf',
                         title: 'Kapitel 1',
-                        youtube_id: 'adfadsfsfafsf'
+                        youtube_id: 'u4DUmKFScvU'
                     },
                     {
                         id: 'dsfsdfsfsfsdf2',
                         title: 'Kapitel 2',
-                        youtube_id: 'adfadsfsfafsf2'
+                        youtube_id: 'u4DUmKFScvU'
                     },
                     {
                         id: 'dsfsdfsfsfsdf3',
                         title: 'Kapitel 3',
-                        youtube_id: 'adfadsfsfafsf3'
+                        youtube_id: 'u4DUmKFScvU'
                     },
                     {
                         id: 'dsfsdfsfsfsdf4',
                         title: 'Kapitel 4',
-                        youtube_id: 'adfadsfsfafsf4'
+                        youtube_id: 'u4DUmKFScvU'
                     }
                 ]
             }
         ],
         bookParts: [
             {
-                bookId: 'wrwerwerwerwerw',
-                bookPartId: 'sdfsdfsdfsdf',
+                bookId: 'dfwgd34534terter',
+                bookPartId: 'dsfsdfsfsfsdf',
                 bookTitle: 'Harry Potter und der Stein der Weisen -3',
                 partTitle: 'Kapitel 1',
-                youtube_id: 'f3kek3k42d',
+                youtube_id: 'u4DUmKFScvU',
                 content: [
                     {
                         sentences: [
