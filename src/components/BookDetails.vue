@@ -8,7 +8,7 @@
                 <v-flex xs4 md3>
                     <v-img
                             height="200"
-                            src="https://dynamic.indigoimages.ca/books/1408855658.jpg?altimages=false&scaleup=true&maxheight=515&width=380&quality=85&sale=40&lang=en"
+                            :src="book.imageUrl"
                     ></v-img>
                     <div class="text-xs-center">
                         <v-btn flat color="white">
@@ -26,13 +26,13 @@
                         </div>
                     </v-card-title>
                     <v-card-actions>
-                        <v-rating
+                       <!-- <v-rating
                                 v-model="book.rating"
                                 color="yellow"
                                 dense
                                 readonly
                                 half-increments
-                        ></v-rating>
+                        ></v-rating>-->
                         <div class="ml-1">
                             <span>{{book.rating}}</span>
                             <span>({{book.ratingsCount}})</span>
