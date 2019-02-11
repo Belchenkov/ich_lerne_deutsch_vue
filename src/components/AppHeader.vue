@@ -74,9 +74,9 @@
         },
         methods: {
             logout() {
-                this.$confirm('Действительно хотите выйти?').then(res => {
-                    return !!res ? this.$store.dispatch('LOGOUT') : false;
-                });
+                if (confirm('Действительно хотите выйти?')) {
+                    return this.$store.dispatch('LOGOUT');
+                }
             }
         }
     }

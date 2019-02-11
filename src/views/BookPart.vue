@@ -2,16 +2,20 @@
    <v-container grid-list-md v-if="part">
        <v-layout row wrap>
            <v-flex xs12 sm10 offset-sm1>
-                <!-- Content -->
+                <book-part-content :part="part"></book-part-content>
            </v-flex>
            <v-flex xs12 sm10 offset-sm1>
-                <!-- Words -->
+                <book-part-words :words="part.words"></book-part-words>
            </v-flex>
        </v-layout>
    </v-container>
 </template>
 
 <script>
+    import Vue from 'vue';
+    import BookPartContent from '../components/BookPartContent';
+    import BookPartWords from '../components/BookPartWords';
+
     export default {
         props: {
             'bookId': {
@@ -23,10 +27,31 @@
                 required: true
             }
         },
+        data() {
+          return {
+              part: ''
+          }
+        },
+        components: {
+            BookPartContent,
+            BookPartWords
+        },
         computed: {
-            part() {
+            /*part() {
                 return this.$store.getters.getParts.find(b => b.bookId == this.bookId && b.bookPartId == this.partId);
-            }
+            }*/
+        },
+        created() {
+            Vue.$db.collection('bookParts')
+                .where('bookId', '==', this.bookId)
+                .where('bookPartId', '==', this.partId)
+                .get()
+                .then(querySnapshot => {
+                    querySnapshot.forEach(s => {
+                        this.part = s.data();
+                    });
+                })
+                .catch(err => console.error(err))
         }
     }
 </script>
