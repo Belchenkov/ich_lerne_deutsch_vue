@@ -38,7 +38,16 @@
                             <span>({{book.ratingsCount}})</span>
                         </div>
                         <v-spacer></v-spacer>
-                        <v-btn class="primary" flat>Загрузить</v-btn>
+                        <v-btn
+                                class="primary"
+                                flat
+                                v-if="canLoadBook(book.id)"
+                                @click="loadBook(book.id)"
+                        >Загрузить</v-btn>
+                        <div v-if="getUserDataBook(book.id)">
+                            <v-icon color="white">work_outline</v-icon>
+                            Книга скачана {{ getBookAddedDate(book.id) }}
+                        </div>
                     </v-card-actions>
                 </v-flex>
             </v-layout>
@@ -48,6 +57,7 @@
 
 <script>
     import * as bookHelper from '../helpers/book';
+    import { mapGetters } from 'vuex';
 
     export default {
         props: {
@@ -56,8 +66,34 @@
                 required: true
             }
         },
+        data () {
+            return {
+            }
+        },
+        computed: {
+            ...mapGetters([
+                'isUserAuthenticated',
+                'userData',
+                'getProcessing'
+            ])
+        },
         methods: {
-            getBookLevel: bookHelper.getBookLevel
+            getBookLevel: bookHelper.getBookLevel,
+            canLoadBook(bookId) {
+                let book = this.getUserDataBook(bookId);
+                console.log(this.isUserAuthenticated);
+                return this.isUserAuthenticated && !this.getProcessing && !book;
+            },
+            getUserDataBook(bookId) {
+                return this.userData.books[bookId];
+            },
+            loadBook(bookId) {
+                this.$store.dispatch('ADD_USER_BOOK', bookId);
+            },
+            getBookAddedDate(bookId) {
+                let book = this.getUserDataBook(bookId);
+                return book.addedDate.toLocaleDateString();
+            }
         }
     }
 </script>
