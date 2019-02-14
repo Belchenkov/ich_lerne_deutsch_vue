@@ -8,15 +8,16 @@ import firebase from 'firebase'
 import "firebase/firestore"
 import firebaseConfig from './config/firebase'
 import VueYouTubeEmbed from 'vue-youtube-embed'
+import FormattedDate from './filters/formattedDate';
 
 Vue.use(Vuetify);
 Vue.use(VueYouTubeEmbed);
+
+Vue.filter('formattedDate', FormattedDate);
+
 Vue.config.productionTip = false;
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const db = firebaseApp.firestore();
-// db.settings({
-//   timestampsInSnapshots: true
-// });
 
 Vue.$db = db;
 
