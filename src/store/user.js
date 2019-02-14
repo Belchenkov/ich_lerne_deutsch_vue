@@ -10,7 +10,8 @@ export default {
     getters: {
       isUserAuthenticated: (state) => {
           return state.user.isAuthenticated
-      }
+      },
+      userId: (state) => state.user.uid
     },
     mutations: {
         SET_USER (state, payload) {
@@ -52,9 +53,10 @@ export default {
         LOGOUT() {
             firebase.auth().signOut();
         },
-        STATE_CHANGED({commit}, payload) {
+        STATE_CHANGED({commit, dispatch}, payload) {
             if (payload) {
-                commit('SET_USER',payload.uid);
+                commit('SET_USER', payload.uid);
+                dispatch('LOAD_USER_DATA', payload.uid);
             } else {
                 commit('UNSET_USER');
             }
