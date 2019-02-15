@@ -5,19 +5,23 @@ export default {
         user: {
             isAuthenticated: false,
             uid: null,
-            name: null
+            name: null,
+            email: null
         }
     },
     getters: {
       isUserAuthenticated: (state) => {
           return state.user.isAuthenticated
       },
-      userId: (state) => state.user.uid
+      userId: (state) => state.user.uid,
+      userName: (state) => state.user.name,
+      userEmail: (state) => state.user.email
     },
     mutations: {
         SET_USER (state, payload) {
             state.user.isAuthenticated = true;
-            state.user.uid = payload;
+            state.user.uid = payload.uid;
+            state.user.email = payload.email;
         },
         SET_USER_NAME (state, payload) {
             state.user.name = payload;
@@ -62,7 +66,7 @@ export default {
         },
         STATE_CHANGED({commit, dispatch}, payload) {
             if (payload) {
-                commit('SET_USER', payload.uid);
+                commit('SET_USER', {uid: payload.uid, email: payload.email});
                 commit('SET_USER_NAME', payload.displayName);
                 dispatch('LOAD_USER_DATA', payload.uid);
             } else {
