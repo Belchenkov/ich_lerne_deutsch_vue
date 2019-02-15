@@ -15,6 +15,15 @@
                             <v-form v-model="valid">
                                 <v-text-field
                                         prepend-icon="person"
+                                        name="name"
+                                        label="Имя"
+                                        type="text"
+                                        required
+                                        v-model="name"
+                                        :rules="nameRules"
+                                ></v-text-field>
+                                <v-text-field
+                                        prepend-icon="email"
                                         name="login"
                                         label="Почта"
                                         type="text"
@@ -55,6 +64,7 @@
             return {
                 email: null,
                 password: null,
+                name: null,
                 valid: false,
                 emailRules: [
                     (v) => !!v || 'Пожалуйста введите email',
@@ -63,6 +73,9 @@
                 passwordRules: [
                     (v) => !!v || 'Пожалуйста введите пароль',
                     (v) => (v && v.length >= 6) || 'Пароль слишком короткий - минимум 6 символов'
+                ],
+                nameRules: [
+                    (v) => !!v || 'Пожалуйста введите Ваше имя'
                 ]﻿
             }
         },
@@ -85,6 +98,7 @@
         methods: {
             signup () {
                 this.$store.dispatch('SIGNUP', {
+                    name: this.name,
                     email: this.email,
                     password: this.password
                 })
