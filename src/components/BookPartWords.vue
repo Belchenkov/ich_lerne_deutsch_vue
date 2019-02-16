@@ -54,10 +54,16 @@
                         <v-spacer></v-spacer>
                         <v-btn
                                 color="primary"
+                                @click="addWord(props.item)"
                                 small
                                 fab
                                 dark
+                                :disabled="checking || processing"
                         ><v-icon dark>add</v-icon></v-btn>
+                        <v-snackbar v-model="snackbar" bottom light color="error">
+                            <v-icon>warning</v-icon>
+                            {{ snackbarText }}
+                        </v-snackbar>
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -77,7 +83,9 @@
         },
         data () {
             return {
-
+                snackbar: false,
+                snackbarText: null,
+                checking: false
             }
         },
         computed: {
@@ -94,10 +102,29 @@
                 }
 
                 return words;
+            },
+            processing () {
+                return this.$store.getters.getProcessing
             }
         },
         methods: {
-            getFullOriginalWord: getFullOriginalWord
+            getFullOriginalWord: getFullOriginalWord,
+            addWord(entity) {
+                this.checking = true;
+                let userWords = this.$store.getters.userData.words;
+                let wordAdded = userWords[entity.key];
+
+                if (wordAdded) {
+                    this.snackbar = true;
+                    this.snackbarText = 'Слово уже добавлено!';
+                } else if (Object.keys(userWords).length > 100) {
+                    this.snackbar = true;
+                    this.snackbarText = 'Изучаемых слов не может быть больше 100!';
+                } else {
+                    this.$store.dispatch('ADD_USER_WORD', entity);
+                }
+                this.checking = false;
+            }
         }
     }
 </script>
