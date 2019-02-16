@@ -26,6 +26,9 @@ export default {
         SET_USER_NAME (state, payload) {
             state.user.name = payload;
         },
+        SET_USER_EMAIL (state, payload) {
+            state.user.email = payload;
+        },
         UNSET_USER (state) {
             state.user = {
                 isAuthenticated: false,
@@ -72,6 +75,60 @@ export default {
             } else {
                 commit('UNSET_USER');
             }
+        },
+        CHANGE_USER_PROFILE_DATA({commit}, payload) {
+            let user = firebase.auth().currentUser;
+            let credential = firebase.auth.EmailAuthProvider.credential(
+                payload.email,
+                payload.password
+            );
+
+            commit('SET_PROCESSING', true);
+            commit('CLEAR_ERROR');
+
+            user.reauthenticateAndRetrieveDataWithCredential(credential)
+                .then(() => {
+                    let currentUser = firebase.auth().currentUser;
+
+                    if (payload.changeType == 'name') {
+                        currentUser.updateProfile({displayName: payload.newName})
+                            .then(() => {
+                                commit('SET_PROCESSING', false);
+                                commit('SET_USER_NAME', payload.newName);
+                            })
+                            .catch(err => {
+                                commit('SET_PROCESSING', false);
+                                commit('SET_ERROR', error.message);
+                            });
+                    }
+
+                    if (payload.changeType == 'email') {
+                        currentUser.updateEmail(payload.newEmail)
+                            .then(() => {
+                                commit('SET_PROCESSING', false);
+                                commit('SET_USER_EMAIL', payload.newEmail);
+                            })
+                            .catch(err => {
+                                commit('SET_PROCESSING', false);
+                                commit('SET_ERROR', err.message);
+                            });
+                    }
+
+                    if (payload.changeType == 'password') {
+                        currentUser.updatePassword(payload.newPassword)
+                            .then(() => {
+                                commit('SET_PROCESSING', false);
+                            })
+                            .catch(err => {
+                                commit('SET_PROCESSING', false);
+                                commit('SET_ERROR', err.message);
+                            });
+                    }
+                })
+                .catch(err => {
+                    commit('SET_PROCESSING', false);
+                    commit('SET_ERROR', err.message);
+                });
         }
     }
 }
