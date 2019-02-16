@@ -34,16 +34,22 @@ export default {
         LOAD_USER_DATA({commit}, payload) {
             commit('SET_PROCESSING', true);
             let userDataRef = Vue.$db.collection('userData').doc(payload);
+
             userDataRef.get()
                 .then(data => {
                     let userData = data.exists ? data.data() : defaultUserData;
 
-                    if (userData.books) {
+                    if (!userData.books) {
                         userData.books = {};
-
-                        commit('SET_USER_DATA', userData);
-                        commit('SET_PROCESSING', false);
                     }
+
+                    if (!userData.words) {
+                        userData.words = {};
+                    }
+
+                    commit('SET_USER_DATA', userData);
+                    commit('SET_PROCESSING', false);
+
                 })
                 .catch(err => console.error(err));
         },
