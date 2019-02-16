@@ -19,6 +19,9 @@ export default {
         ADD_USER_BOOK(state, payload) {
             Vue.set(state.userData.books, payload.bookId, payload.book)
         },
+        ADD_USER_WORD(state, payload) {
+            Vue.set(state.userData.words, payload.wordId, payload.word)
+        },
         ADD_USER_BOOK_PART(state, payload) {
             Vue.set(state.userData.books[payload.bookId].parts, payload.partId, {addedDate: payload.timestamp});
         },
@@ -34,16 +37,22 @@ export default {
         LOAD_USER_DATA({commit}, payload) {
             commit('SET_PROCESSING', true);
             let userDataRef = Vue.$db.collection('userData').doc(payload);
+
             userDataRef.get()
                 .then(data => {
                     let userData = data.exists ? data.data() : defaultUserData;
 
-                    if (userData.books) {
+                    if (!userData.books) {
                         userData.books = {};
-
-                        commit('SET_USER_DATA', userData);
-                        commit('SET_PROCESSING', false);
                     }
+
+                    if (!userData.words) {
+                        userData.words = {};
+                    }
+
+                    commit('SET_USER_DATA', userData);
+                    commit('SET_PROCESSING', false);
+
                 })
                 .catch(err => console.error(err));
         },
@@ -62,6 +71,32 @@ export default {
             }, { merge: true })
                 .then(() => {
                     commit('ADD_USER_BOOK', {bookId: payload, book: book});
+                    commit('SET_PROCESSING', false);
+                })
+        },
+        ADD_USER_WORD({commit, getters}, payload) {
+            commit('SET_PROCESSING', true);
+            let userDataRef = Vue.$db.collection('userData').doc(getters.userId);
+            let word = {
+                origText: payload.origText,
+                transText: payload.transText,
+                type: payload.type,
+                addedDate: new Date(),
+                bucket: 1,
+                nextShowDate: new Date()
+            };
+
+            if (payload.origPrefix) {
+                word.origPrefix = payload.origPrefix;
+            }
+
+            userDataRef.set({
+                words: {
+                    [payload.key]: word
+                }
+            }, { merge: true })
+                .then(() => {
+                    commit('ADD_USER_WORD', {wordId: payload.key, word: word});
                     commit('SET_PROCESSING', false);
                 })
         },
