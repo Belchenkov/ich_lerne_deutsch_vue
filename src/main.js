@@ -9,6 +9,7 @@ import "firebase/firestore"
 import firebaseConfig from './config/firebase'
 import VueYouTubeEmbed from 'vue-youtube-embed'
 import FormattedDate from './filters/formattedDate';
+import { setupBus } from "./infrastructure/eventBus";
 
 Vue.use(Vuetify);
 Vue.use(VueYouTubeEmbed);
@@ -20,6 +21,9 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 const db = firebaseApp.firestore();
 
 Vue.$db = db;
+
+setupBus();
+
 
 new Vue({
   router,
