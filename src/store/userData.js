@@ -1,4 +1,6 @@
 import Vue from 'vue';
+import firebase from 'firebase';
+import { EventBus } from '../infrastructure/eventBus';
 
 let defaultUserData = {
         books: {},
@@ -31,6 +33,15 @@ export default {
         UPDATE_USER_BOOK_PART_FINISH_INFO(state, payload) {
             Vue.set(state.userData.books[payload.bookId].parts[payload.partId], 'finishedDate', payload.timestamp);
             Vue.set(state.userData.books[payload.bookId].parts[payload.partId], 'rating', payload.rating);
+        },
+        REMOVE_USER_WORD(state, payload) {
+            Vue.delete(state.userData.words, payload);
+            EventBus.notify('userword:updated', payload);
+        },
+        UPDATE_USER_WORD(state, payload) {
+            Vue.set(state.userData.words[payload.wordId], 'bucket', payload.word.bucket);
+            Vue.set(state.userData.words[payload.wordId], 'nextShowDate', payload.word.nextShowDate);
+            EventBus.notify('userword:updated', payload.wordId);
         }
     },
     actions: {
@@ -137,6 +148,33 @@ export default {
                     timestamp: timestamp,
                     rating: payload.rating
                 }));
+        },
+        PROCESS_USER_WORD({commit, getters}, payload) {
+            let word = getters.userData.words[payload];
+            let userDataRef = Vue.$db.collection('userData').doc(getters.userId);
+
+            if (word.bucket == 5) {
+                userDataRef.update({
+                    [`words.${payload}`]: firebase.firestore.FieldValue.delete()
+                }).then(() => {
+                    commit('REMOVE_USER_WORD', payload)
+                }).catch(err => console.error(err));
+            } else {
+                let nextShowDate = new Date();
+                nextShowDate = new Date(nextShowDate.setDate(new Date().getDate() + word.bucket * 2));
+                word.nextShowDate = nextShowDate;
+                word.bucket++;
+
+                userDataRef.set({
+                   words: {
+                       [payload]: word
+                   }
+                }, {merge: true})
+                    .then(() => commit('UPDATE_USER_WORD', {
+                        word: word,
+                        wordId: payload
+                    }));
+            }
         }
     }
 }
