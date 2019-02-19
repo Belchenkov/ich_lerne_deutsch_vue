@@ -75,7 +75,8 @@
         methods: {
             logout() {
                 if (confirm('Действительно хотите выйти?')) {
-                    return this.$store.dispatch('LOGOUT');
+                    this.$store.dispatch('LOGOUT');
+                    this.$router.push({name: 'home'});
                 }
             }
         }

@@ -8,7 +8,8 @@ export default {
             uid: null,
             name: null,
             email: null
-        }
+        },
+        unsubscribeAuth: null
     },
     getters: {
       isUserAuthenticated: (state) => {
@@ -35,9 +36,24 @@ export default {
                 isAuthenticated: false,
                 uid: null
             }
+        },
+        SET_UNSUBSCRIBE_AUTH(state, payload) {
+            state.unsubscribeAuth = payload;
         }
     },
     actions: {
+        INIT_AUTH ({dispatch, commit, state}) {
+            return new Promise((resolve, reject) => {
+                if (state.unsubscribeAuth) {
+                    state.unsubscribeAuth();
+                }
+                let unsubscribe = firebase.auth().onAuthStateChanged(user => {
+                    dispatch('STATE_CHANGED', user);
+                    resolve(user);
+                });
+                commit('SET_UNSUBSCRIBE_AUTH', unsubscribe);
+            });
+        },
         SIGNUP ({commit}, payload) {
             commit('SET_PROCESSING', true);
             commit('CLEAR_ERROR');

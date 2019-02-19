@@ -30,10 +30,6 @@ new Vue({
   store,
   render: h => h(App),
   created () {
-    firebase.auth().onAuthStateChanged(user => {
-      this.$store.dispatch('STATE_CHANGED', user)
-    });
-
     this.$store.dispatch('LOAD_BOOKS');
   }
 }).$mount('#app');
