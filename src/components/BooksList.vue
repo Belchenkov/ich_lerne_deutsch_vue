@@ -32,6 +32,12 @@
     import Book from './BooksListItem';
 
     export default {
+        props: {
+            'onlyMy': {
+                type: Boolean,
+                default: false
+            }
+        },
         data() {
             return {
                 searchTerm: null,
@@ -45,6 +51,10 @@
             },
             filteredBooks() {
                 let books = this.books;
+
+                if (this.onlyMy) {
+                    books = books.filter(b => this.$store.getters.userData.books[b.id]);
+                }
 
                 if(this.searchTerm) {
                     books = books.filter(b =>
