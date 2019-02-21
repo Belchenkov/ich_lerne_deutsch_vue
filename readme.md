@@ -1,29 +1,6 @@
-# ichLerneDeutsch
+# Ich lerne Deutsch Service
 
-## Project setup
-```
-npm install
-```
+### Service for learn German Language (Vue.js, Vuetify, Vuex, Firebase)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Demo: https://ich-lerne-deutsch.firebaseapp.com 
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
